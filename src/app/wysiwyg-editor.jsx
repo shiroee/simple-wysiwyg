@@ -90,7 +90,7 @@ export default function WysiwygEditor() {
         const ulLists = editorRef.current.querySelectorAll("ul")
         ulLists.forEach((ul) => {
             if (!ul.className.includes("list-disc")) {
-                ul.className = "list-disc pl-5 space-y-0.5 text-base"
+                ul.className = "list-disc list-inside pl-5 space-y-0.5 text-base"
             }
         })
 
@@ -98,7 +98,7 @@ export default function WysiwygEditor() {
         const olLists = editorRef.current.querySelectorAll("ol")
         olLists.forEach((ol) => {
             if (!ol.className.includes("list-decimal")) {
-                ol.className = "list-decimal pl-5 space-y-0.5 text-base"
+                ol.className = "list-decimal list-inside pl-5 space-y-0.5 text-base"
             }
         })
 
