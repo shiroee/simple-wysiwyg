@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #dbdbdb;
+    --background: #ffffff;
     --foreground: #000000;
   }
 }
@@ -24,6 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+button,
+  [role='button'] {
+    cursor: pointer;
+  }
 
 .rsw-ce ul {
   list-style: disc;
