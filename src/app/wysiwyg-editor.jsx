@@ -169,6 +169,47 @@ export default function WysiwygEditor() {
         }
     }, [])
 
+    // Handle paste event to strip formatting
+    const handlePaste = (e) => {
+        e.preventDefault()
+
+        // Get plain text from clipboard
+        let text = ""
+
+        if (e.clipboardData && e.clipboardData.getData) {
+            // Get plain text if available
+            text = e.clipboardData.getData("text/plain")
+        } else if (window.clipboardData && window.clipboardData.getData) {
+            // For IE
+            text = window.clipboardData.getData("Text")
+        }
+
+        // Insert the plain text at cursor position
+        if (document.queryCommandSupported("insertText")) {
+            document.execCommand("insertText", false, text)
+        } else {
+            // Fallback for browsers that don't support insertText
+            document.execCommand("paste", false, text)
+        }
+
+    };
+    useEffect(() => {
+        // Make sure the editor is initialized properly
+        if (editorRef.current) {
+            // Enable editing features
+            editorRef.current.addEventListener("keydown", handleKeyDown)
+            // Add paste event listener
+            editorRef.current.addEventListener("paste", handlePaste)
+
+            return () => {
+                // Cleanup event listeners
+                if (editorRef.current) {
+                    editorRef.current.removeEventListener("keydown", handleKeyDown)
+                    editorRef.current.removeEventListener("paste", handlePaste)
+                }
+            }
+        }
+    }, [])
     // Apply Tailwind classes to lists when editor content changes
     useEffect(() => {
         const observer = new MutationObserver(() => {
